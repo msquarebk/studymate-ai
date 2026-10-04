@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StudyMate AI — Student Assistant</title>
+<meta name="description" content="StudyMate AI is a simple student toolkit for AI study help, quizzes, GPA calculations and exam preparation.">
+<style>
+:root{--green:#087f5b;--dark:#102a24;--muted:#60716c;--bg:#f5faf8;--card:#fff;--line:#dce9e4;--soft:#e7f6f0}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--dark)}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.nav{max-width:1100px;margin:auto;padding:15px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:20px}.logo span{color:var(--green)}
+nav a{margin-left:18px;text-decoration:none;color:#40534e;font-size:14px}
+.hero{max-width:1100px;margin:auto;padding:58px 20px 35px;display:grid;grid-template-columns:1.2fr .8fr;gap:35px;align-items:center}
+.badge{display:inline-block;background:var(--soft);color:var(--green);padding:7px 12px;border-radius:99px;font-size:13px;font-weight:700}
+h1{font-size:clamp(38px,6vw,62px);line-height:1.02;margin:17px 0}.hero p{font-size:18px;line-height:1.6;color:var(--muted);max-width:650px}
+.btn{display:inline-block;background:var(--green);color:#fff;border:0;border-radius:12px;padding:13px 18px;font-weight:700;text-decoration:none;cursor:pointer}
+.ai-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 12px 35px #16483a12}
+.ai-card textarea{width:100%;height:125px;border:1px solid var(--line);border-radius:13px;padding:14px;font:inherit;resize:vertical}
+.result{margin-top:14px;background:#f8fcfa;border-radius:13px;padding:14px;line-height:1.55;color:#415650;min-height:55px}
+.ad{max-width:1100px;margin:15px auto;padding:12px 20px}.adbox{height:74px;border:1px dashed #b9ccc5;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#8a9b96;font-size:12px;background:#fff}
+.section{max-width:1100px;margin:auto;padding:35px 20px}.section h2{font-size:30px;margin-bottom:8px}.sub{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px}.icon{font-size:25px}.card h3{margin:12px 0 7px}.card p{color:var(--muted);line-height:1.5;font-size:14px}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:12px}.calc input,.calc select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit}
+.calc button{grid-column:1/-1}
+footer{margin-top:30px;background:#102a24;color:#dbe9e4;padding:30px 20px;text-align:center;font-size:13px}
+@media(max-width:750px){.hero{grid-template-columns:1fr;padding-top:38px}.grid{grid-template-columns:1fr}.nav nav{display:none}.calc{grid-template-columns:1fr}h1{font-size:44px}}
+</style>
+
+<style>
+.contact { padding: 24px 20px 10px; }
+.contact-card { max-width: 1000px; margin: 0 auto; padding: 28px; border-radius: 22px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); }
+.contact-card h2 { margin: 6px 0 8px; }
+.contact-card p { opacity: .78; margin-bottom: 20px; }
+.contact-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.contact-links a { text-decoration: none; padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,.07); color: inherit; border: 1px solid rgba(255,255,255,.08); }
+.contact-links a:hover { transform: translateY(-1px); }
+footer a { color: inherit; }
+@media (max-width: 600px) {
+  .contact-card { padding: 22px 18px; }
+  .contact-links { display: grid; grid-template-columns: 1fr; }
+  .contact-links a { text-align: center; }
+}
+</style>
+
+
+<style>
+.resources { padding: 52px 20px 24px; }
+.section-inner { max-width: 1000px; margin: 0 auto; }
+.section-intro { opacity: .78; max-width: 700px; margin: 8px 0 24px; }
+.resource-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.resource-card { padding: 22px; border-radius: 20px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); }
+.resource-icon { font-size: 30px; margin-bottom: 10px; }
+.resource-card h3 { margin: 0 0 8px; }
+.resource-card p { opacity: .76; line-height: 1.6; }
+.resource-card a { display: inline-block; margin-top: 8px; font-weight: 700; text-decoration: none; }
+@media (max-width: 700px) {
+  .resource-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+</head>
+<body>
+<header><div class="nav"><div class="logo">StudyMate <span>AI</span></div><nav><a href="#tools">Tools</a><a href="#gpa">GPA</a><a href="#about">About</a></nav></div></header>
+
+<main>
+<section class="hero">
+<div>
+<span class="badge">FREE STUDENT TOOLKIT</span>
+<h1>Study smarter.<br><span style="color:var(--green)">Learn faster.</span></h1>
+<p>AI-powered study tools, GPA calculations and exam preparation — designed to make difficult topics easier for students.</p>
+<a class="btn" href="#tools">Explore tools ↓</a>
+</div>
+<div class="ai-card">
+<strong>✨ Ask StudyMate</strong>
+<p style="font-size:13px;color:var(--muted)">Try a question below. This demo works without an API and can later be connected to an AI model.</p>
+<textarea id="question" placeholder="e.g. Explain Kirchhoff's loop rule simply..."></textarea>
+<button class="btn" onclick="askDemo()">Ask StudyMate</button>
+<div id="answer" class="result">Your answer will appear here.</div>
+</div>
+</section>
+
+<div class="ad"><div class="adbox">ADVERTISEMENT</div></div>
+
+<section class="section" id="tools">
+<h2>Student tools</h2><p class="sub">Useful tools without annoying redirects or fake buttons.</p>
+<div class="grid">
+<div class="card"><div class="icon">🧠</div><h3>Explain a Topic</h3><p>Get difficult concepts broken down into simple language and examples.</p></div>
+<div class="card"><div class="icon">❓</div><h3>Quiz Generator</h3><p>Create practice multiple-choice questions for revision and CBT preparation.</p></div>
+<div class="card"><div class="icon">📝</div><h3>Study Notes</h3><p>Turn a topic into structured revision notes, key points and definitions.</p></div>
+<div class="card"><div class="icon">📚</div><h3>CBT Practice</h3><p>Practice objective questions and test your understanding before exams.</p></div>
+<div class="card" id="gpa"><div class="icon">🎓</div><h3>GPA Calculator</h3><p>Calculate semester GPA using the standard 5-point scale.</p><div class="calc">
+<input id="credits" type="number" min="1" placeholder="Total credit units">
+<input id="points" type="number" min="0" max="5" step=".01" placeholder="Quality points">
+<button class="btn" onclick="calcGpa()">Calculate GPA</button>
+<div id="gpaResult" style="grid-column:1/-1;font-weight:700"></div>
+</div></div>
+<div class="card"><div class="icon">🎯</div><h3>Target CGPA</h3><p>Plan the grades you need to reach your desired cumulative GPA.</p></div>
+</div>
+</section>
+
+<div class="ad"><div class="adbox">ADVERTISEMENT</div></div>
+
+<section class="section" id="about">
+<h2>Built for students</h2><p class="sub">The goal is simple: useful tools first, honest advertising second. No forced redirects, fake download buttons or endless pop-ups.</p>
+</section>
+</main>
+
+<footer>© 2026 StudyMate AI · About · Privacy · Contact</footer>
+
+<script>
+function askDemo(){
+ const q=document.getElementById('question').value.trim(), a=document.getElementById('answer');
+ if(!q){a.textContent='Please enter a question first.';return}
+ const lower=q.toLowerCase();
+ if(lower.includes('kirchhoff')) a.textContent="Kirchhoff’s loop rule says that the total voltage rise and voltage drop around a closed electrical loop add up to zero. In simple terms: what the circuit gains in voltage, it must lose.";
+ else if(lower.includes('genome')) a.textContent="A human genome is the complete set of DNA instructions found in a human cell. It contains the genetic information used for growth, development and normal cell function.";
+ else a.textContent="This is the first free prototype. The next version can connect this box to an AI model so it can answer your question dynamically.";
+}
+function calcGpa(){
+ const c=parseFloat(document.getElementById('credits').value), p=parseFloat(document.getElementById('points').value);
+ const out=document.getElementById('gpaResult');
+ if(!c||isNaN(p)||p<0||p>5){out.textContent='Enter valid credit units and quality points.';return}
+ out.textContent='GPA: '+(p/c).toFixed(2);
+}
+</script>
+
+<section class="resources" id="resources">
+  <div class="section-inner">
+    <span class="eyebrow">STUDY RESOURCES</span>
+    <h2>Learn from trusted educational sources</h2>
+    <p class="section-intro">Explore free lessons, textbooks, courses and practice materials from established education platforms.</p>
+
+    <div class="resource-grid">
+      <article class="resource-card">
+        <div class="resource-icon">🎓</div>
+        <h3>Khan Academy</h3>
+        <p>Free lessons, practice exercises and videos across mathematics, science, biology, chemistry and more.</p>
+        <a href="https://www.khanacademy.org/" target="_blank" rel="noopener">Visit Khan Academy →</a>
+      </article>
+
+      <article class="resource-card">
+        <div class="resource-icon">📚</div>
+        <h3>OpenStax</h3>
+        <p>Free, peer-reviewed and openly licensed textbooks, including Biology, Chemistry, Physics, Anatomy & Physiology and Microbiology.</p>
+        <a href="https://openstax.org/" target="_blank" rel="noopener">Browse OpenStax →</a>
+      </article>
+
+      <article class="resource-card">
+        <div class="resource-icon">🏛️</div>
+        <h3>MIT OpenCourseWare</h3>
+        <p>Free course materials from thousands of MIT courses, including lecture notes, assignments, exams and selected video lectures.</p>
+        <a href="https://ocw.mit.edu/" target="_blank" rel="noopener">Explore MIT OCW →</a>
+      </article>
+
+      <article class="resource-card">
+        <div class="resource-icon">🔬</div>
+        <h3>CK-12</h3>
+        <p>Free educational resources, FlexBooks, simulations and practice materials for mathematics and science.</p>
+        <a href="https://www.ck12.org/" target="_blank" rel="noopener">Explore CK-12 →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-card">
+    <span class="eyebrow">CONTACT</span>
+    <h2>Connect with me</h2>
+    <p>Questions, feedback, or collaboration? Reach out through any of the links below.</p>
+    <div class="contact-links">
+      <a href="tel:+2348065181111">📞 +234 806 518 1111</a>
+      <a href="mailto:msquarebk@gmail.com">✉️ msquarebk@gmail.com</a>
+      <a href="https://facebook.com/mansiri1" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://vm.tiktok.com/ZS9DrJxj8rjaE-hbHc0/" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://x.com/chemical_guru" target="_blank" rel="noopener">X</a>
+      <a href="https://instagram.com/abukhadijat66?stkn=MWo5c2FhZjZwemhjdA%3D%3D" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://ng.linkedin.com/in/mansur-ibrahim-b57b383b7" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 StudyMate AI · About · Privacy · <a href="#contact">Contact</a>
+</footer>
+</body>
+</html>
