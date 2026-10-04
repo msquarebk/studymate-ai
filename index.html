@@ -111,13 +111,39 @@ footer a { color: inherit; }
 <footer>© 2026 StudyMate AI · About · Privacy · Contact</footer>
 
 <script>
-function askDemo(){
- const q=document.getElementById('question').value.trim(), a=document.getElementById('answer');
- if(!q){a.textContent='Please enter a question first.';return}
- const lower=q.toLowerCase();
- if(lower.includes('kirchhoff')) a.textContent="Kirchhoff’s loop rule says that the total voltage rise and voltage drop around a closed electrical loop add up to zero. In simple terms: what the circuit gains in voltage, it must lose.";
- else if(lower.includes('genome')) a.textContent="A human genome is the complete set of DNA instructions found in a human cell. It contains the genetic information used for growth, development and normal cell function.";
- else a.textContent="This is the first free prototype. The next version can connect this box to an AI model so it can answer your question dynamically.";
+async function askDemo() {
+  const q = document.getElementById('question').value.trim();
+  const a = document.getElementById('answer');
+
+  if (!q) {
+    a.textContent = 'Please enter a question first.';
+    return;
+  }
+
+  a.textContent = 'Thinking...';
+
+  try {
+    const response = await fetch('https://studymate-ai-api.imansir625.workers.dev', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        question: q
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Something went wrong.');
+    }
+
+    a.textContent = data.answer || data.response || 'No answer received.';
+  } catch (error) {
+    a.textContent = 'Sorry, I could not connect to StudyMate AI. Please try again.';
+    console.error(error);
+  }
 }
 function calcGpa(){
  const c=parseFloat(document.getElementById('credits').value), p=parseFloat(document.getElementById('points').value);
