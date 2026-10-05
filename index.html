@@ -137,9 +137,9 @@ async function askDemo() {
 
     if (!response.ok) {
       throw new Error(data.error || 'Something went wrong.');
-    }
+    } 
 
-    a.textContent = data.answer || data.response || 'No answer received.';
+    a.textContent = data.answer || data.response || 'data.response' || 'No answer received.';
   } catch (error) {
     a.textContent = 'Sorry, I could not connect to StudyMate AI. Please try again.';
     console.error(error);
