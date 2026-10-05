@@ -184,9 +184,9 @@ async function askDemo() {
   data.answer || data.response || 'No answer received.'
 );
   } catch (error) {
-    a.textContent = 'Sorry, I could not connect to StudyMate AI. Please try again.';
-    console.error(error);
-  }
+  a.textContent = 'Error: ' + error.message;
+  console.error(error);
+}
 }
 function calcGpa(){
  const c=parseFloat(document.getElementById('credits').value), p=parseFloat(document.getElementById('points').value);
