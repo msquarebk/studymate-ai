@@ -174,23 +174,28 @@ async function askDemo() {
       })
     });
 
-  if (!response.ok) {
-  throw new Error(
-    data?.error?.message ||
-    data?.message ||
-    JSON.stringify(data?.error || data) ||
-    'Something went wrong.'
-  );
-}
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data?.error?.message ||
+        data?.message ||
+        JSON.stringify(data?.error || data) ||
+        'Something went wrong.'
+      );
+    }
 
     a.textContent = cleanMarkdown(
-  data.answer || data.response || 'No answer received.'
-);
+      data.answer || data.response || 'No answer received.'
+    );
+
   } catch (error) {
-  a.textContent = 'Error: ' + error.message;
-  console.error(error);
+    a.textContent = 'Error: ' + error.message;
+    console.error(error);
+  }
 }
-}
+```
+
 function calcGpa(){
  const c=parseFloat(document.getElementById('credits').value), p=parseFloat(document.getElementById('points').value);
  const out=document.getElementById('gpaResult');
