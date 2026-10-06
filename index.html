@@ -111,7 +111,7 @@ footer a { color: inherit; }
 <footer>© 2026 StudyMate AI · About · Privacy · Contact</footer>
 
 <script>
-  function cleanMarkdown(text) {
+function cleanMarkdown(text) {
   return text
     // Remove Markdown headings
     .replace(/^#{1,6}\s*/gm, '')
@@ -144,7 +144,7 @@ footer a { color: inherit; }
     // Remove table pipes
     .replace(/\|/g, ' ')
 
-    // Remove leftover repeated spaces
+    // Remove repeated spaces
     .replace(/[ \t]{2,}/g, ' ')
 
     // Remove excessive blank lines
@@ -152,6 +152,7 @@ footer a { color: inherit; }
 
     .trim();
 }
+
 async function askDemo() {
   const q = document.getElementById('question').value.trim();
   const a = document.getElementById('answer');
@@ -164,15 +165,18 @@ async function askDemo() {
   a.textContent = 'Thinking...';
 
   try {
-    const response = await fetch('https://studymate-ai-api.imansir625.workers.dev', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        question: q
-      })
-    });
+    const response = await fetch(
+      'https://studymate-ai-api.imansir625.workers.dev',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          question: q
+        })
+      }
+    );
 
     const data = await response.json();
 
@@ -194,16 +198,21 @@ async function askDemo() {
     console.error(error);
   }
 }
-```
 
-function calcGpa(){
- const c=parseFloat(document.getElementById('credits').value), p=parseFloat(document.getElementById('points').value);
- const out=document.getElementById('gpaResult');
- if(!c||isNaN(p)||p<0||p>5){out.textContent='Enter valid credit units and quality points.';return}
- out.textContent='GPA: '+(p/c).toFixed(2);
+function calcGpa() {
+  const c = parseFloat(document.getElementById('credits').value);
+  const p = parseFloat(document.getElementById('points').value);
+  const out = document.getElementById('gpaResult');
+
+  if (!c || isNaN(p) || p < 0 || p > 5) {
+    out.textContent = 'Enter valid credit units and quality points.';
+    return;
+  }
+
+  out.textContent = 'GPA: ' + (p / c).toFixed(2);
 }
 </script>
-
+  
 <section class="resources" id="resources">
   <div class="section-inner">
     <span class="eyebrow">STUDY RESOURCES</span>
