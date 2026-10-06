@@ -174,11 +174,14 @@ async function askDemo() {
       })
     });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || 'Something went wrong.');
-    } 
+  if (!response.ok) {
+  throw new Error(
+    data?.error?.message ||
+    data?.message ||
+    JSON.stringify(data?.error || data) ||
+    'Something went wrong.'
+  );
+}
 
     a.textContent = cleanMarkdown(
   data.answer || data.response || 'No answer received.'
