@@ -182,11 +182,13 @@ async function askDemo() {
 
     if (!response.ok) {
       throw new Error(
-        data?.error?.message ||
-        data?.message ||
-        JSON.stringify(data?.error || data) ||
-        'Something went wrong.'
-      );
+  data?.details?.error?.message ||
+  data?.details?.message ||
+  data?.details ||
+  data?.error?.message ||
+  data?.error ||
+  'Something went wrong.'
+);
     }
 
     a.textContent = cleanMarkdown(
