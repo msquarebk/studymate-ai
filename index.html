@@ -221,10 +221,9 @@ async function askDemo() {
   'Something went wrong.'
 );
     }
+const answerText = data.answer || data.response || 'No answer received.';
 
-    const answerText = data.answer || data.response || 'No answer received.';
-
-// Preserve mathematical notation while cleaning ordinary Markdown.
+// Clean ordinary Markdown while preserving mathematical notation.
 a.textContent = answerText
 .replace(/^#{1,6}\s*/gm, '')
 .replace(/**(.?)**/g, '$1')
@@ -232,13 +231,14 @@ a.textContent = answerText
 .replace(/^\s*[-*+]\s+/gm, '• ')
 .trim();
 
-// Render supported LaTeX mathematical expressions.
+// Render mathematical expressions when MathJax is available.
 if (window.MathJax && window.MathJax.typesetPromise) {
 MathJax.typesetClear([a]);
 MathJax.typesetPromise([a]).catch(error => {
 console.error('MathJax rendering error:', error);
 });
-}
+  }
+    
 
   } catch (error) {
     a.textContent = 'Error: ' + error.message;
