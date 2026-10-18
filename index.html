@@ -5,11 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>StudyMate AI — Student Assistant</title>
 <meta name="description" content="StudyMate AI is a simple student toolkit for AI study help, quizzes, GPA calculations and exam preparation.">
-  <script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\', '\']],
-      displayMath: [['$$', '$$'], ['\', '\']],
+    <script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\', '\']],
+    displayMath: [['$$', '$$'], ['\', '\']],
+    processEscapes: true
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  startup: {
+    typeset: false
+  }
+};
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       processEscapes: true
     },
     options: {
@@ -226,8 +236,8 @@ const answerText = data.answer || data.response || 'No answer received.';
 // Clean ordinary Markdown while preserving mathematical notation.
 a.textContent = answerText
 .replace(/^#{1,6}\s*/gm, '')
-.replace(/**(.?)**/g, '$1')
-.replace(/__(.?)__/g, '$1')
+.replace(/\*\*(.*?)\*\*/g, '$1')
+.replace(/__(.*?)__/g, '$1')
 .replace(/^\s*[-*+]\s+/gm, '• ')
 .trim();
 
