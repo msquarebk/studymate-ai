@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>StudyMate AI — Student Assistant</title>
 <meta name="description" content="StudyMate AI is a simple student toolkit for AI study help, quizzes, GPA calculations and exam preparation.">
+  <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\', '\']],
+      displayMath: [['$$', '$$'], ['\', '\']],
+      processEscapes: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    startup: {
+      typeset: false
+    }
+  };
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
 :root{--green:#087f5b;--dark:#102a24;--muted:#60716c;--bg:#f5faf8;--card:#fff;--line:#dce9e4;--soft:#e7f6f0}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--dark)}
@@ -18,7 +33,23 @@ h1{font-size:clamp(38px,6vw,62px);line-height:1.02;margin:17px 0}.hero p{font-si
 .btn{display:inline-block;background:var(--green);color:#fff;border:0;border-radius:12px;padding:13px 18px;font-weight:700;text-decoration:none;cursor:pointer}
 .ai-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 12px 35px #16483a12}
 .ai-card textarea{width:100%;height:125px;border:1px solid var(--line);border-radius:13px;padding:14px;font:inherit;resize:vertical}
-.result{margin-top:14px;background:#f8fcfa;border-radius:13px;padding:14px;line-height:1.55;color:#415650;min-height:55px}
+.result {
+margin-top: 14px;
+background: #f8fcfa;
+border-radius: 13px;
+padding: 16px;
+line-height: 1.8;
+color: #415650;
+min-height: 55px;
+overflow-wrap: anywhere;
+overflow-x: auto;
+}
+
+.result mjx-container {
+max-width: 100%;
+overflow-x: auto;
+overflow-y: hidden;
+}
 .ad{max-width:1100px;margin:15px auto;padding:12px 20px}.adbox{height:74px;border:1px dashed #b9ccc5;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#8a9b96;font-size:12px;background:#fff}
 .section{max-width:1100px;margin:auto;padding:35px 20px}.section h2{font-size:30px;margin-bottom:8px}.sub{color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
@@ -191,9 +222,23 @@ async function askDemo() {
 );
     }
 
-    a.textContent = cleanMarkdown(
-      data.answer || data.response || 'No answer received.'
-    );
+    const answerText = data.answer || data.response || 'No answer received.';
+
+// Preserve mathematical notation while cleaning ordinary Markdown.
+a.textContent = answerText
+.replace(/^#{1,6}\s*/gm, '')
+.replace(/**(.?)**/g, '$1')
+.replace(/__(.?)__/g, '$1')
+.replace(/^\s*[-*+]\s+/gm, '• ')
+.trim();
+
+// Render supported LaTeX mathematical expressions.
+if (window.MathJax && window.MathJax.typesetPromise) {
+MathJax.typesetClear([a]);
+MathJax.typesetPromise([a]).catch(error => {
+console.error('MathJax rendering error:', error);
+});
+}
 
   } catch (error) {
     a.textContent = 'Error: ' + error.message;
